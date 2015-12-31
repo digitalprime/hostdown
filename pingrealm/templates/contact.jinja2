@@ -1,0 +1,63 @@
+{% extends 'bs-base.jinja2' %}
+
+{% block content %}
+	<div class="container">
+		<div class="col-md-12">
+		<h1>Contact g0t!</h1>
+
+		<p>We’re here to help with any questions or comments. If you just want to say hi, that's cool too.
+			Do not forget you can email us directly at <a href="mailto:support@g0t.co">support@g0t.co</a>.</p>
+
+			<form name="contact" method="post">
+				<fieldset>
+					<input type="hidden" name="x-csrf" value="{{ request.session.get_csrf_token() }}"/>
+
+					<div class="form-group">
+						{{ form.name.label }}
+						{{ form.name(class_='form-control') }}
+						{% if form.name.errors %}
+							<div>
+								{% for error in form.name.errors %}<p class="right">{{ error }}</p>{% endfor %}
+							</div>
+						{% endif %}
+					</div>
+
+					<div class="form-group">
+						{{ form.email.label }}
+						{{ form.email(class_='form-control') }}
+						{% if form.email.errors %}
+							<div>
+								{% for error in form.email.errors %}<p class="right">{{ error }}</p>{% endfor %}
+							</div>
+						{% endif %}
+					</div>
+
+					<div class="form-group">
+						{{ form.subject.label }}
+						{{ form.subject(class_='form-control') }}
+						{% if form.subject.errors %}
+							<div>
+								{% for error in form.subject.errors %}<p class="right">{{ error }}</p>{% endfor %}
+							</div>
+						{% endif %}
+					</div>
+
+					<div class="form-group">
+						{{ form.body.label }}
+						{{ form.body(rows=10, size=80,class_='form-control') }}
+						{% if form.body.errors %}
+							<div>
+								{% for error in form.body.errors %}<p class="right">{{ error }}</p>{% endfor %}
+							</div>
+						{% endif %}
+					</div>
+
+					<button class="btn btn-large btn-primary" type="submit">Send Request</button>
+				</fieldset>
+			</form>
+	</div>
+	<div class="pure-u-1-5"></div>
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}

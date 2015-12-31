@@ -1,0 +1,82 @@
+{% extends 'bs-base.jinja2' %}
+
+{% block content %}
+	<div class="container">
+		<div class="col-md-10">
+			<div class="pull-right">
+				<a class="twitter-share-button" href="https://twitter.com/share" data-related="twitterdev" data-size="large" data-count="none">Tweet</a>
+			</div>
+
+			<h1>Is Your Host <span style="color: red">Down</span>?</h1>
+
+			<p>What is the status of your website?</p>
+			<br>
+
+			<p>Enter the web address to check to see if it is up or down!</p>
+
+			<form class="form-group" method="post">
+				<fieldset>
+					<input type="hidden" name="csrf_token" value="{{ request.session.get_csrf_token() }}"/>
+
+					<div class="form-group">
+						{% if input %}
+							<input class="input-lg form-control" name="url" type="text" value="{{ input }}" placeholder="http://web.url.to.check">
+						{% else %}
+							<input class="input-lg form-control" name="url" type="text" placeholder="http://web.url.to.check">
+						{% endif %}
+					</div>
+
+					{% if error %}
+						<div class="alert alert-success" role="alert">
+							<p align="center">{{ error }}</p>
+						</div>
+					{% endif %}
+
+					<div class="form-group">
+						<button class="btn btn-primary btn-lg" type="submit">Is it up?</button>
+					</div>
+				</fieldset>
+			</form>
+
+			{% if result %}
+				{% if isup %}
+					<h1 id="up"><span style="color: green">{{ result.host_url|urlshort }}</span> is up!</h1>
+					{% if result.redirected_to %}
+						<p>but we did get redirected to {{ result.redirected_to }}</p>
+					{% endif %}
+				{% else %}
+					<h1 id="down"><span style="color: red">{{ result.host_url|urlshort }}</span> is down!</h1>
+				{% endif %}
+
+				<p>Tested from London, UK.</p>
+				{% if last %}
+					<p>Last checked {{ last.checked_on|timeago }}</p>
+				{% endif %}
+			{% endif %}
+		</div>
+
+		<div class="col-md-2">
+			{% if request.registry.settings['ad_right'] %}
+			<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+			<ins class="adsbygoogle"
+			     style="display:inline-block;width:160px;height:600px"
+			     data-ad-client="ca-pub-2184633392540689"
+			     data-ad-slot="{{ request.registry.settings['ad_right'] }}"></ins>
+			<script>
+				(adsbygoogle = window.adsbygoogle || []).push({});
+			</script>
+			{#			<img src="http://placehold.it/160x600">#}
+			{% endif %}
+		</div>
+	</div>
+{% endblock %}
+
+{% block footer %}
+{#	<div class="container">#}
+{#		<div class="col-md-12">#}
+{#			<p align="right" class="small mono">#}
+{#				brought to you free by a dude who likes making silly but useful websites#}
+{#			</p>#}
+{#		</div>#}
+{#	</div>#}
+{% endblock %}
