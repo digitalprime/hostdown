@@ -5,7 +5,7 @@ from bs4 import BeautifulSoup
 # from mongoengine import connect
 # from pyramid import testing
 from pyramid.paster import get_app
-from models import *
+from .models import *
 
 import logging
 log = logging.getLogger(__name__)
@@ -16,7 +16,6 @@ class BasicUserTest(unittest.TestCase):
 		app = get_app('development.ini')
 		self.engine = create_engine('sqlite://')
 
-		# db = scoped_session(sessionmaker(extension=ZopeTransactionExtension()))
 		db = scoped_session(sessionmaker())
 		db.configure(bind=self.engine)
 		Base.metadata.bind = self.engine
