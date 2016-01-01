@@ -1,18 +1,16 @@
 from pyramid.view import view_config
 from pyramid.view import view_defaults
 from pyramid.httpexceptions import *
-from mongoengine import connect
 import datetime
 import transaction
 import bleach
 import requests
 import requests.exceptions
 
-from models import *
-from validate_url import *
+from .models import *
+from .validate_url import *
 
 import logging
-
 log = logging.getLogger(__name__)
 
 
