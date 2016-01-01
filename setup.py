@@ -23,6 +23,7 @@ requires = [
 	'colander',
 	'requests',
 	'markdown',
+	'webtest',
 	'beautifulsoup4'
 ]
 
